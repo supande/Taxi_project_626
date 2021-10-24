@@ -101,17 +101,12 @@ This is the code I used for pickup_latitude:
 
 In the 2nd script, I found the corresponding longitudes for minimum and maximum latitude and the corresponding latitudes for minimum and maximum longitude and plotted them on a graph. (X-Lat, Y-Lon)
 
-| --------------------------|
-| Latitude    |   Longitude |
-| --------------------------|
-|  37.030144  |  -75.630196 |
-| --------------------------|
-|  43.987225  |  -87.018166 |
-| --------------------------|
-|  40.755871  |  -78.949997 |
-| --------------------------|
-|  41.255856  |  -73.001663 |
-| --------------------------|
+Latitude		Longitude
+37.030144		-75.630196
+43.987225		-87.018166
+40.755871		-78.949997
+41.255856		-73.001663
+
 
 
 ![Image of chart](Images/Question_5.png)
