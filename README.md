@@ -76,7 +76,7 @@ Q4. What MySQL data types / len would you need to store each of the fields?
 Ans. medallion- varchar(40)
      hack_license- varchar(40)
      vendor_id- char(3)
-     rate_code- int(3)
+     rate_code- int(3) (because there are some 3-digit integer values in rate-code) 
      store_and_fwd_flag- boolean
      pickup_datetime- datetime
      dropoff_datetime-  datetime
@@ -92,7 +92,8 @@ Ans. medallion- varchar(40)
 Q5. What is the geographic range of your data (min/max - X/Y)?
     Plot this (approximately on a map)
 
-Ans. In order to find geographic range of the data, first I wanted to remove the outliers and values that are too far from NYC and chose          range(37,44) for both latitudes and chose range(-78,-72) for both longitudes. After doing this, I found out the minimum and maximum          values of columns pickup_longitude, pickup_latitude, dropoff_longitude, dropoff_latitude by first converting them into float, so that I      can compare them. In the end, I found the minimum and maximum latitudes by comparing the minimums and maximums from both latitude            columns. And similarly I found the minimum and maximum longitudes. Minimum and Maximum latitudes are 37.030144 and 43.987225                respectively. Minimum and Maximum longitudes are -78.949997 and -73.001663 respectively.
+Ans. In order to find geographic range of the data, first I wanted to remove the outliers and values that are too far from NYC and after          looking at the map I chose range(37,44) for both latitudes and chose range(-78,-72) for both longitudes. The values removed was a very      small percentage of the whole dataset. After doing this, I found out the minimum and maximum values of columns pickup_longitude,            pickup_latitude, dropoff_longitude, dropoff_latitude by first converting them into float, so that I can compare the valid values of          them. In the end, I found the minimum and maximum latitudes by comparing the minimums and maximums from both latitude columns. And          similarly I found the minimum and maximum longitudes. Minimum and Maximum latitudes are 37.030144 and 43.987225 respectively. Minimum        and Maximum longitudes are -78.949997 and -73.001663 respectively.
+
 <br>
 This is the code I used for pickup_latitude:
 <br>
@@ -113,7 +114,7 @@ This is the code I used for pickup_latitude:
                         pick_lat_max = latitude1
 ```
 
-In the 2nd script, I found the corresponding longitudes for minimum and maximum latitude and the corresponding latitudes for minimum and maximum longitude and plotted them on a graph. (X-Lat, Y-Lon)
+In the 2nd script, I found the corresponding longitudes for minimum and maximum latitudes and the corresponding latitudes for minimum and maximum longitudes and plotted them on a graph. (X-Lat, Y-Lon)
 
 ![Image of chart](Images/Question_5.png)
 
@@ -150,7 +151,7 @@ For creating histogram of trip distances, I took 0-1 Miles, 1-2 Miles, 2-3 Miles
 
 Q7. What are the distinct values for each field? (If applicable)
 
-Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vendor_id',' rate_code',' store_and_fwd_flag','passenger_count',      ' trip_time_in_secs' and ' trip_distance'. For varchar and char value fields like 'medallion',' hack_license',' vendor_id' and              'store_and_fwd_flag',I removed the null values. For int and float value columns like ' rate_code','passenger_count',                        'trip_time_in_secs' and ' trip_distance', I check if they can be converted to int or float depending on the column, using try and            except. Then I used dictionary to calculate the distinct values.
+Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vendor_id',' rate_code',' store_and_fwd_flag','passenger_count',      ' trip_time_in_secs' and ' trip_distance'. For varchar and char value fields like 'medallion',' hack_license',' vendor_id' and              'store_and_fwd_flag',I removed the null values. For int and float value columns like ' rate_code','passenger_count',                        'trip_time_in_secs' and ' trip_distance', I checked if they can be converted to int or float depending on the column, using try and           except. Then I used dictionary to calculate the distinct values.
 
 <br>
     this is the code that I used to remove null values:
@@ -165,13 +166,12 @@ Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vend
      
 ```   
 
-Note- Some codes are not showing output, even though they are correct. Maybe it is my system's problem.
+Note- Some codes are not showing output, even though they are correct. They were showing output before, but when I tried to run them again, they did not display output even though there is no error message. Maybe it is my system's problem.
 
 
 Q8. For other numeric types besides lat and lon, what are the min and max values?
 
-Ans. I calculated the minimum and maximum values of rate_code, passenger_count, trip_distance, trip_time_in_secs. I did not consider the          outliers for passenger_count, trip_distance, trip_time_in_secs. Like explained above, I removed values greater than 200 Miles from trip      distance because I wanted to remove data which is too far from NYC and lower limit was 0.1 Miles to remove 0 and -ve values. For            passenger count, I set the upper limit at 10 to accomodate the cabs that are huge(if possible) and in case some people dropped off in        the middle of the trip and others got in the cab. I set the lower limit at 1 so as to include only the valid trips. For
-     trip_time_in_secs, I set the lower limit at 30 secs because I think that will be the time taken to cover the minimum trip distance of        0.1 Miles, particularly in a busy city like New York. Similarly, I set the upper limit at 15000 secs which is a lttle more than 4            hours, as I think that will be approximately the time taken to cover the maximum distance of 200 Miles.
+Ans. I calculated the minimum and maximum values of rate_code, passenger_count, trip_distance, trip_time_in_secs. I did not consider the          outliers for passenger_count, trip_distance, trip_time_in_secs. Like explained above, I removed values greater than 200 Miles from trip      distance because I wanted to remove data which is too far from NYC and lower limit was 0.1 Miles to remove 0 and -ve values, which are      not valid for the trips. For passenger count, I set the upper limit at 10 to accomodate the cabs that are huge(if possible) and in case      some people dropped off in the middle of the trip and others got in the cab. I set the lower limit at 1 so as to include only the valid      trips. For trip_time_in_secs, I set the lower limit at 30 secs because I think that will be the time taken to cover the minimum trip        distance of 0.1 Miles, particularly in a busy city like New York. Similarly, I set the upper limit at 15000 secs which is a lttle more      than 4 hours, as I think that will be approximately the time taken to cover the maximum distance of 200 Miles.
      
    Minimum trip distance- 0.11 Miles and Maximum trip distance is 199.7 Miles
    Minimum rate code is 1 and Maximum rate code is 239
@@ -181,7 +181,7 @@ Ans. I calculated the minimum and maximum values of rate_code, passenger_count, 
 
 Q9. Create a chart which shows the average number of passengers each hour of the day. (X axis should have 24 hours)
 
-Ans. First I calculated the total number of days across which this data spans. To do that I took the valid pickup_datetime values and split      them to get the date and split them again to get the combination of month and date. Then, I found the uniue month and date values using      dictionary. In the end I calculated the length of dictionary to get the number of days. Number of days are 31.
+Ans. First I calculated the total number of days across which this data spanned. To do that, I took the valid pickup_datetime values and          split them to get the date and split them again to get the combination of month and date. Then, I found the uniue month and date values      using dictionary. In the end I calculated the length of dictionary to get the number of days. Number of days are 31.
 
 <br>
   I used this code to get the number of days:
@@ -242,7 +242,7 @@ for hour in shist.keys():
 
 Q10. Create a new CSV file which has only one out of every thousand rows.
 
-Ans. To do this, first I created and opened a new subset file in write mode and overwrote everything with ' ', so that I don't have any data      in the file while appending. Then I closed the file  reopened it in the append mode and created a writer variable using csv.writer to        write data to the file. I gave delimiters as ',' and '\n' to recognize new column and new row. Then I wrote every thousandth row on the      new file using modulus. I used if n%1000==0 statement and wrote the entire row if this condition satisfied.
+Ans. To do this, first I created and opened a new subset file in write mode and overwrote everything with ' ', so that I don't have any data      in the file while appending. Then I closed the file and reopened it in the append mode and created a writer variable using csv.writer        to write data to the file. I gave delimiters as ',' and '\n' to recognize new column and new row. Then I wrote every thousandth row on      the new file using modulus. I used if n%1000==0 statement and wrote the entire row if this condition satisfied.
 
 
 
