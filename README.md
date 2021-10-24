@@ -25,11 +25,11 @@ for row in reader:
    Field names are- 'medallion', ' hack_license', ' vendor_id', ' rate_code', ' store_and_fwd_flag', ' pickup_datetime',                        'dropoff_datetime', ' passenger_count', ' trip_time_in_secs', ' trip_distance', ' pickup_longitude', ' pickup_latitude',                    'dropoff_longitude', ' dropoff_latitude'.
       
    Descriptions:-
-      medallion- 
-      hack_license-
-      vendor_id-
-      rate_code-
-      store_and_fwd_flag-
+      medallion- Permit number required to run taxi. They are unique for each taxi.
+      hack_license- License number required to drive a taxi. They are unique for every driver. 
+      vendor_id- A code indicating the TPEP provider that provided the record.
+      rate_code- This is the rate-code applicable at the end of the trip
+      store_and_fwd_flag- This has 2 values- Yes and No, indicating whether trip record was held in vehicle memory before sending to the           vendor, aka "store and forward", because the vehicle did not have a connection to the server.
       pickup_datetime- The date and time at which the passengers where picked up by the taxi
       dropoff_datetime- The date and time at which the passengers where dropped off by the taxi 
       passenger_count- number of passengers on a taxi trip
@@ -101,14 +101,6 @@ This is the code I used for pickup_latitude:
 
 In the 2nd script, I found the corresponding longitudes for minimum and maximum latitude and the corresponding latitudes for minimum and maximum longitude and plotted them on a graph. (X-Lat, Y-Lon)
 
-Latitude		Longitude
-37.030144		-75.630196
-43.987225		-87.018166
-40.755871		-78.949997
-41.255856		-73.001663
-
-
-
 ![Image of chart](Images/Question_5.png)
 
 
@@ -156,7 +148,11 @@ Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vend
                 shist[medallion] += 1
             else:
                 shist[medallion] = 1
+     
 ```   
+
+Note- Some codes are not showing output, even though they are correct
+
 
 Q8. For other numeric types besides lat and lon, what are the min and max values?
 
@@ -241,5 +237,7 @@ Q11. Repeat step 9 with the reduced dataset and compare the two charts.
 Ans. After comparing question 9 chart with new subset chart, I found out that they follow almost the same trend with 19-23 hours having the      most number of passengers and 01-05 hours having the least number of passengers. So, I think  reducing the dataset did not have much        effect because the reduced dataset is also pretty huge, having 12800 rows appromately. So, it is following the same pattern. Maybe          reducing the dataset even more will change the pattern a little bit.
 
 ![Image of chart](Images/Question_11.png)
+
+NOTE- I have also uploaded the outlier testing file, in which I tested possible outliers of certain columns.
 
 
