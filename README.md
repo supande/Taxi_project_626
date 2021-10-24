@@ -8,7 +8,7 @@ Ans. For finding the range of the datetime I used the pickup_datetime column.I u
       
 Q2. What are the field names?  Give descriptions for each field.
 
-Ans. Ran the row in reader for loop and printed the row.Initialised n=0 outside the loop, then broke the loop if n>0. So, only the first row      got printed.
+Ans. Printed the row in the for loop.Initialised n=0 outside the loop, then broke the loop if n>0. So, only the first row got printed.
      
 <br/>
    This the code that I used:
@@ -25,20 +25,34 @@ for row in reader:
    Field names are- 'medallion', ' hack_license', ' vendor_id', ' rate_code', ' store_and_fwd_flag', ' pickup_datetime',                        'dropoff_datetime', ' passenger_count', ' trip_time_in_secs', ' trip_distance', ' pickup_longitude', ' pickup_latitude',                    'dropoff_longitude', ' dropoff_latitude'.
       
    Descriptions:-
-      medallion- Permit number required to run taxi. They are unique for each taxi.
-      hack_license- License number required to drive a taxi. They are unique for every driver. 
-      vendor_id- A code indicating the TPEP provider that provided the record.
-      rate_code- This is the rate-code applicable at the end of the trip
-      store_and_fwd_flag- This has 2 values- Yes and No, indicating whether trip record was held in vehicle memory before sending to the           vendor, aka "store and forward", because the vehicle did not have a connection to the server.
-      pickup_datetime- The date and time at which the passengers where picked up by the taxi
-      dropoff_datetime- The date and time at which the passengers where dropped off by the taxi 
-      passenger_count- number of passengers on a taxi trip
-      trip_time_in_secs- Time taken in the trip in seconds
-      trip_distance- The length of the taxi trip in Miles
-      pickup_longitude- The longitude of the location where taxi picked up the passenger
-      pickup_latitude- The latitude of the location where taxi picked up the passenger
-      dropoff_longitude- The longitude of the location where taxi dropped off the passenger
-      dropoff_latitude- The latitude of the location where taxi dropped off the passenger
+   
+   1. medallion- Permit number required to run taxi. They are unique for each taxi.
+   
+   2. hack_license- License number required to drive a taxi. They are unique for every driver. 
+   
+   3. vendor_id- A code indicating the TPEP provider that provided the record.
+   
+   4.  rate_code- This is the rate-code applicable at the end of the trip
+   
+   5. store_and_fwd_flag- This has 2 values- Yes and No, indicating whether trip record was held in vehicle memory before sending to the           vendor, aka "store and forward", because the vehicle did not have a connection to the server.
+   
+   6. pickup_datetime- The date and time at which the passengers where picked up by the taxi
+   
+   7. dropoff_datetime- The date and time at which the passengers where dropped off by the taxi 
+   
+   8. passenger_count- number of passengers on a taxi trip
+   
+   9. trip_time_in_secs- Time taken in the trip in seconds
+   
+   10. trip_distance- The length of the taxi trip in Miles
+   
+   11. pickup_longitude- The longitude of the location where taxi picked up the passenger
+   
+   12. pickup_latitude- The latitude of the location where taxi picked up the passenger
+   
+   13. dropoff_longitude- The longitude of the location where taxi dropped off the passenger
+   
+   14. dropoff_latitude- The latitude of the location where taxi dropped off the passenger
 
 Q3. Give some sample data for each field.
 
@@ -151,7 +165,7 @@ Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vend
      
 ```   
 
-Note- Some codes are not showing output, even though they are correct
+Note- Some codes are not showing output, even though they are correct. Maybe it is my system's problem.
 
 
 Q8. For other numeric types besides lat and lon, what are the min and max values?
