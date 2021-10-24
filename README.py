@@ -14,13 +14,13 @@ Ans. Ran the row in reader for loop and printed the row.Initialised n=0 outside 
    This the code that I used:
 <br/>
 
-```python
+'''python
 for row in reader:
     print(row)
     n+=1
     if n>0:
         break
-```     
+'''     
     
    Field names are- 'medallion', ' hack_license', ' vendor_id', ' rate_code', ' store_and_fwd_flag', ' pickup_datetime',                        'dropoff_datetime', ' passenger_count', ' trip_time_in_secs', ' trip_distance', ' pickup_longitude', ' pickup_latitude',                    'dropoff_longitude', ' dropoff_latitude'.
       
@@ -44,10 +44,10 @@ Q3. Give some sample data for each field.
 
 Ans. Printed 20 sample data using the for loop on reader. Ignored the first row and broke the loop if n>20.
 <br>
-   This the code that I used:
+   This the code that I used
 <br>
 
-```python
+'''python
 
 for row in reader:
     if n>0:
@@ -55,7 +55,7 @@ for row in reader:
     n+=1
     if n>20:
         break
-```
+'''
 Q4. What MySQL data types / len would you need to store each of the fields? 
           int(xx), varchar(xx),date,datetime,bool, decimal(m,d)
 
@@ -82,7 +82,7 @@ Ans. In order to find geographic range of the data, first I wanted to remove the
 <br>
 This is the code I used for pickup_latitude:
 <br>
-```python
+'''python
         try:
             latitude1 = float(row[11])
         except:
@@ -97,7 +97,7 @@ This is the code I used for pickup_latitude:
                         pick_lat_min = latitude1
                 elif latitude1 > pick_lat_max:
                         pick_lat_max = latitude1
-```
+'''
 
 In the 2nd script, I found the corresponding longitudes for minimum and maximum latitude and the corresponding latitudes for minimum and maximum longitude and plotted them on a graph. (X-Lat, Y-Lon)
 
@@ -111,10 +111,10 @@ Ans. For finding the average trip distance using the Haversine formula, I copied
      After that I called the haversine function inside the for loop by passing the parameters as float values and I assigned the distance        value to a variable.Then I calculated the average trip distance by dividing the sum of distances by total number of valid rows. Also, I      took trip distance values that were less than 200 Miles to remove a few outliers as the average trip distance increased significantly        due to them and also because I wanted to capture only those trips that happened in and around NYC. Also, I used >0 condition on trip        distance to capture only valid trips. The average trip distance according to Haversine formula is 3.537499738549388 Miles.
      
 <br>
-This is the code I used to call the function and calculate the average distance:
+This is the code I used to call the function and calculate the average distance
 <br>
 
-```python
+'''python
 for row in reader:
     if n>0:
         distance = None
@@ -127,9 +127,9 @@ for row in reader:
                 Sum = Sum + distance
                 count+=1
     
-    n+=1
+   n+=1
 Average_trip_distance = Sum/count
-```
+'''
 For creating histogram of trip distances, I took 0-1 Miles, 1-2 Miles, 2-3 Miles, 3-4 Miles, 4-5 Miles, Greater than 5 Miles values for the x-axis and their corresponding total number of rows in the y-axis.
 
 ![Image of chart](Images/Question_6.png)
@@ -139,16 +139,16 @@ Q7. What are the distinct values for each field? (If applicable)
 Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vendor_id',' rate_code',' store_and_fwd_flag','passenger_count',      ' trip_time_in_secs' and ' trip_distance'. For varchar and char value fields like 'medallion',' hack_license',' vendor_id' and              'store_and_fwd_flag',I removed the null values. For int and float value columns like ' rate_code','passenger_count',                        'trip_time_in_secs' and ' trip_distance', I check if they can be converted to int or float depending on the column, using try and            except. Then I used dictionary to calculate the distinct values.
 
 <br>
-    this is the code that I used to remove null values:
+    this is the code that I used to remove null values
 <br>
 
-```python
+'''python
         if len(medallion)!=0:
             if medallion in shist.keys():
                 shist[medallion] += 1
             else:
                 shist[medallion] = 1
-```   
+'''   
 
 Q8. For other numeric types besides lat and lon, what are the min and max values?
 
@@ -166,10 +166,10 @@ Q9. Create a chart which shows the average number of passengers each hour of the
 Ans. First I calculated the total number of days across which this data spans. To do that I took the valid pickup_datetime values and split      them to get the date and split them again to get the combination of month and date. Then, I found the uniue month and date values using      dictionary. In the end I calculated the length of dictionary to get the number of days. Number of days are 31.
 
 <br>
-  I used this code to get the number of days:
+  I used this code to get the number of days
 <br>
 
-```python
+'''python
 for row in reader:
     if n>0:
         dts = None
@@ -184,20 +184,20 @@ for row in reader:
             else:
                 shist[month_day]=1
                 
-    n+=1
+   n+=1
 
 print(shist)
 print("\n",len(shist))  
 
-```
+'''
 
 Then in the 2nd script, I double split the valid pickup_datetime values to get the hour value. After that I used dictionary to calculate the total passenger_count for that hour across all the days. And in the end, in another for loop, I divided dictionary values by 31 to get the average number of passengers for each hour of the day.
 
 <br>
-    I used below code to perform above mentioned operation:
+    I used below code to perform above mentioned operation
 <br>
 
-```python
+'''python
 
 for row in reader:
     if n>0:
@@ -212,13 +212,13 @@ for row in reader:
             else:
                 shist[hour]= int(row[7])
     
-    n+=1
+   n+=1
     
 for hour in shist.keys():
     
    shist[hour]=shist[hour]//Number_days
    
-```
+'''
 ![Image of chart](Images/Question_9.png)
 
 
