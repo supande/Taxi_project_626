@@ -4,12 +4,6 @@ Q1. What datetime range does your data cover?  How many rows are there total?
  
 Ans. For finding the range of the datetime I used the pickup_datetime column.I used try and except on the string to datetime conversion          statement so as to filter out any non-date entry, then checked if the datetime variable is not None. After that, I used the if and elif      statements to find the minimum and maximum values of the column. And I ran all these statements for n>0, as to remove the headers. So,      I found out that this table represents the taxi trips taken in August 2013. By doing the same thing for dropoff_datetime column, I          found out that some dates where from september month,but I did not consider them for maximum values as they were few and understood          that some will be in september as their pickup time was on the night of 31st August. So, I ignored those values, as this file clearly        is for August month. Datetime range is from 2013-08-01 00:00:00 to 2013-08-31 23:59:59.
          For finding the number of rows, I used the if n%1000000==0 statement to see the 1 millionth row getting printed and used the            print(n) statement at the end outside the for loop to print the total number of rows. It was 12597110 
-         
-         
-Minimum datetime      | Maximum datetime
------------------------ | -------------------
-2013-08-01 00:00:00 |    2013-08-31 23:59:59
-
       
       
 Q2. What are the field names?  Give descriptions for each field.
@@ -80,32 +74,19 @@ Q4. What MySQL data types / len would you need to store each of the fields?
           int(xx), varchar(xx),date,datetime,bool, decimal(m,d)
 
 Ans. medallion- varchar(40)
-
-   hack_license- varchar(40)
-     
-   vendor_id- char(3)
-     
-   rate_code- int(3) (because there are some 3-digit integer values in rate-code) 
-     
-   store_and_fwd_flag- boolean
-     
-   pickup_datetime- datetime
-     
-   dropoff_datetime-  datetime
-     
-   passenger_count- int(3) (due to the outlier 208)
-     
-   trip_time_in_secs- int(7) (due to the outlier 4294966)
-     
-   trip_distance- decimal(10,2) (due to the outlier 15331800.00)
-     
-   pickup_longitude- decimal(10,6) (due to many outliers)
-     
-   pickup_latitude- decimal(10,6) (due to many outliers)
-     
-   dropoff_longitude- decimal(10,6) (due to many outliers)
-     
-   dropoff_latitude- decimal(10,6) (due to many outliers)
+     hack_license- varchar(40)
+     vendor_id- char(3)
+     rate_code- int(3) (because there are some 3-digit integer values in rate-code) 
+     store_and_fwd_flag- boolean
+     pickup_datetime- datetime
+     dropoff_datetime-  datetime
+     passenger_count- int(3) (due to the outlier 208)
+     trip_time_in_secs- int(7) (due to the outlier 4294966)
+     trip_distance- decimal(10,2) (due to the outlier 15331800.00)
+     pickup_longitude- decimal(10,6) (due to many outliers)
+     pickup_latitude- decimal(10,6) (due to many outliers)
+     dropoff_longitude- decimal(10,6) (due to many outliers)
+     dropoff_latitude- decimal(10,6) (due to many outliers)
      
 
 Q5. What is the geographic range of your data (min/max - X/Y)?
@@ -116,7 +97,6 @@ Ans. In order to find geographic range of the data, first I wanted to remove the
 <br>
 This is the code I used for pickup_latitude:
 <br>
-
 ```python
         try:
             latitude1 = float(row[11])
@@ -132,27 +112,11 @@ This is the code I used for pickup_latitude:
                         pick_lat_min = latitude1
                 elif latitude1 > pick_lat_max:
                         pick_lat_max = latitude1
-
 ```
-
-
-Minimum latitude | Maximum latitude | Minimum longitude | Maximum longitude
----------------- | ---------------- | ----------------- | -------------------
-37.030144       |     43.987225     |     -78.949997     |     -73.001663
-
-
 
 In the 2nd script, I found the corresponding longitudes for minimum and maximum latitudes and the corresponding latitudes for minimum and maximum longitudes and plotted them on a graph. (X-Lat, Y-Lon)
 
 ![Image of chart](Images/Question_5.png)
-
-
- Latitude    |   Longitude 
- ----------- | ------------
-  37.030144  |  -75.630196 
-  43.987225  |  -87.018166 
-  40.755871  |  -78.949997 
-  41.255856  |  -73.001663
 
 
 
@@ -202,22 +166,17 @@ Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vend
      
 ```   
 
-Note- 1st, 2nd and last code's output was too big, so I printed the lenth of the dictionary i.e. the number of distinct values.
+Note- Some codes are not showing output, even though they are correct. They were showing output before, but when I tried to run them again, they did not display output even though there is no error message. Maybe it is my system's problem.
 
 
 Q8. For other numeric types besides lat and lon, what are the min and max values?
 
 Ans. I calculated the minimum and maximum values of rate_code, passenger_count, trip_distance, trip_time_in_secs. I did not consider the          outliers for passenger_count, trip_distance, trip_time_in_secs. Like explained above, I removed values greater than 200 Miles from trip      distance because I wanted to remove data which is too far from NYC and lower limit was 0.1 Miles to remove 0 and -ve values, which are      not valid for the trips. For passenger count, I set the upper limit at 10 to accomodate the cabs that are huge(if possible) and in case      some people dropped off in the middle of the trip and others got in the cab. I set the lower limit at 1 so as to include only the valid      trips. For trip_time_in_secs, I set the lower limit at 30 secs because I think that will be the time taken to cover the minimum trip        distance of 0.1 Miles, particularly in a busy city like New York. Similarly, I set the upper limit at 15000 secs which is a lttle more      than 4 hours, as I think that will be approximately the time taken to cover the maximum distance of 200 Miles.
      
-Minimum trip distance | Maximum trip distance | Minimum rate code | Maximum rate code
---------------------- | ----------------------- | ------------------- | -------------------
-0.11                  | 199.7                  | 1                  | 239
-
-
-
-Minimum passenger count | Maximum passenger count | Minimum trip time | Maximum trip time
------------------------ | ----------------------- | ------------------- | -------------------
-1.0                  | 9.0                  | 31.0                    | 14880.0
+   Minimum trip distance- 0.11 Miles and Maximum trip distance is 199.7 Miles
+   Minimum rate code is 1 and Maximum rate code is 239
+   Minimum passenger count is 1.0 and Maximum passenger count is 9.0
+   Minimum trip time is 31.0 seconds and Maximum trip time is 14880.0 seconds
 
 
 Q9. Create a chart which shows the average number of passengers each hour of the day. (X axis should have 24 hours)
@@ -275,7 +234,7 @@ for row in reader:
     
 for hour in shist.keys():
     
-    shist[hour]=shist[hour]//Number_days
+   shist[hour]=shist[hour]//Number_days
    
 ```
 ![Image of chart](Images/Question_9.png)
@@ -293,6 +252,6 @@ Ans. After comparing question 9 chart with new subset chart, I found out that th
 
 ![Image of chart](Images/Question_11.png)
 
-NOTE- I have also uploaded the outlier testing file, in which I tested possible outliers of some columns.
+NOTE- I have also uploaded the outlier testing file, in which I tested possible outliers of certain columns.
 
 
