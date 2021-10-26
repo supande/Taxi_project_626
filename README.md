@@ -187,7 +187,7 @@ For creating histogram of trip distances, I took 0-1 Miles, 1-2 Miles, 2-3 Miles
 
 Q7. What are the distinct values for each field? (If applicable)
 
-Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vendor_id',' rate_code',' store_and_fwd_flag','passenger_count',      ' trip_time_in_secs' and ' trip_distance'. For varchar and char value fields like 'medallion',' hack_license',' vendor_id' and              'store_and_fwd_flag',I removed the null values. For int and float value columns like ' rate_code','passenger_count',                        'trip_time_in_secs' and ' trip_distance', I checked if they can be converted to int or float depending on the column, using try and           except. Then I used dictionary to calculate the distinct values.
+Ans. I calculated distinct values for fields- 'medallion',' hack_license',' vendor_id',' rate_code',' store_and_fwd_flag','passenger_count',      ' trip_time_in_secs' and ' trip_distance'. For varchar and char value fields like 'medallion',' hack_license',' vendor_id' and              'store_and_fwd_flag',I removed the null values. For int and float value columns like ' rate_code','passenger_count',                        'trip_time_in_secs' and ' trip_distance', I checked if they can be converted to int or float depending on the column, using try and           except, to filter out the invalid values. Then I used dictionary to calculate the distinct values.
 
 <br>
     this is the code that I used to remove null values:
